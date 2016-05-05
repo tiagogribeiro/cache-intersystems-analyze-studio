@@ -6,7 +6,7 @@
 
 <Parameter name="PACKAGEuPLUGINS">
 <Final>1</Final>
-<Default>libSourceControl.Analyzer.plugin.</Default>
+<Default>libSourceControl.Analyzer.Plugin.</Default>
 </Parameter>
 
 <Property name="classDefinition">

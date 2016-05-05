@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-<Class name="libSourceControl.Analyzer.plugin.ToDo.Plugin">
-<Import>libSourceControl.Analyzer.plugin</Import>
+<Class name="libSourceControl.Analyzer.Plugin.ToDo.Plugin">
+<Import>libSourceControl.Analyzer.Plugin</Import>
 <Super>PluginAbstract</Super>
 <TimeCreated>64023,80172.480525</TimeCreated>
 

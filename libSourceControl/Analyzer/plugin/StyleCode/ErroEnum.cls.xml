@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-<Class name="libSourceControl.Analyzer.plugin.StyleCode.ErroEnum">
+<Class name="libSourceControl.Analyzer.Plugin.StyleCode.ErroEnum">
 <Super>%RegisteredObject</Super>
 <TimeCreated>64040,73312.405246</TimeCreated>
 

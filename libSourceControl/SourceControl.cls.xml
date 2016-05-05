@@ -12,7 +12,7 @@ just saved. It can be use to export this documement to an external form for exam
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
 	
-	Do ##class(libSourceControl.Analyzer.Suite).createFrom( InternalName ).analyzer()
+	;Do ##class(libSourceControl.Analyzer.Suite).createFrom( InternalName ).analyzer()
 	Quit $$$OK
 ]]></Implementation>
 </Method>
@@ -21,7 +21,7 @@ just saved. It can be use to export this documement to an external form for exam
 <FormalSpec>InternalName:%String,Object:%RegisteredObject=$$$NULLOREF</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	Do ##class(libSourceControl.Analyzer.Suite).createFrom( InternalName ).analyzer()
+	;Do ##class(libSourceControl.Analyzer.Suite).createFrom( InternalName ).analyzer()
 	Quit $$$OK
 ]]></Implementation>
 </Method>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-<Class name="libSourceControl.Analyzer.plugin.StyleCode.Rule">
+<Class name="libSourceControl.Analyzer.Plugin.StyleCode.Rule">
 <Import>libSourceControl.Analyzer</Import>
 <Super>%RegisteredObject</Super>
 <TimeCreated>64014,76181.252493</TimeCreated>

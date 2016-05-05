@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-<Class name="libSourceControl.Analyzer.plugin.PluginAbstract">
+<Class name="libSourceControl.Analyzer.Plugin.PluginAbstract">
 <Abstract>1</Abstract>
 <Import>libSourceControl.Analyzer</Import>
 <Super>%RegisteredObject</Super>

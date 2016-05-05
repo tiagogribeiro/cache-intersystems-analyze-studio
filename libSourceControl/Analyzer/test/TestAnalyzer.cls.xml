@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-<Class name="libSourceControl.Analyzer.test.TestAnalyzer">
+<Class name="libSourceControl.Analyzer.Test.TestAnalyzer">
 <Super>%RegisteredObject</Super>
 <TimeCreated>64014,81387.166162</TimeCreated>
 
@@ -11,18 +11,13 @@
 <Property name="Propriedade">
 <Description>
 Tsasdasddasdaassasdasda
-adsdasasdasa</Description>
+adsdasasdas</Description>
 <Type>%String</Type>
 </Property>
 
-<Method name="Method">
-<FormalSpec>parametro:%String,parametro:%String</FormalSpec>
-<Implementation><![CDATA[
-	//TODO: Fazer tal coisa.
-	//TODO: Fazer tal coisa2.
-	//TODO: Fazer tal coisa3.
-	//TODO: Fazer tal coisa4.
-	Set variavelInterna = 1
+<Method name="Tteste">
+<FormalSpec>Tparameter</FormalSpec>
+<Implementation><![CDATA[	// TODO: Teste aqui
 ]]></Implementation>
 </Method>
 </Class>
