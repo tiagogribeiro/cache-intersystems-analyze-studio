@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="libSourceControl.Analyzer.plugin.StyleCode.ErroEnum">
+<Super>%RegisteredObject</Super>
+<TimeCreated>64040,73312.405246</TimeCreated>
+
+<Parameter name="NAME">
+<Default>Assinatura fora do padrão convensão.</Default>
+</Parameter>
+
+<Parameter name="VARIABLE">
+<Default>Variável fora do padrão convensão.</Default>
+</Parameter>
+
+<Parameter name="PROPERTY">
+<Default>Property fora do padrão convensão.</Default>
+</Parameter>
+
+<Parameter name="ARGUMENT">
+<Default>Parâmetro do método fora do padrão convensão.</Default>
+</Parameter>
+
+<Parameter name="ARGUMENTuTYPE">
+<Default>Parâmetro do método sem tipo específicado.</Default>
+</Parameter>
+
+<Parameter name="PARAMETER">
+<Default>Parâmetro fora do padrão convensão.</Default>
+</Parameter>
+
+<Parameter name="DOCUMENTATION">
+<Default>Sem documentação.</Default>
+</Parameter>
+
+<Parameter name="COUNTuLINEuMETHOD">
+<Default>Método excede o limite de 20 linhas, sugiro refatorar.</Default>
+</Parameter>
+</Class>
+</Export>

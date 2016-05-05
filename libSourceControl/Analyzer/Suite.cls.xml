@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="libSourceControl.Analyzer.Suite">
+<Super>%RegisteredObject</Super>
+<TimeCreated>64014,75610.045484</TimeCreated>
+
+<Parameter name="PACKAGEuPLUGINS">
+<Final>1</Final>
+<Default>libSourceControl.Analyzer.plugin.</Default>
+</Parameter>
+
+<Property name="classDefinition">
+<Type>%ClassDefinition</Type>
+<Private>1</Private>
+</Property>
+
+<Property name="plugin">
+<Type>%String</Type>
+<Private>1</Private>
+</Property>
+
+<Method name="createFrom">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>class:%String</FormalSpec>
+<ReturnType>Suite</ReturnType>
+<Implementation><![CDATA[
+	#dim this As Suite
+	
+	Set this = ..%New()
+	try {		
+		Set this.classDefinition = ##class(%ClassDefinition).%Open( $LB( $REPLACE(class,".CLS","") ) )	
+	} catch exception {
+		//
+	}
+	Quit $G(this)
+]]></Implementation>
+</Method>
+
+<Method name="analyzer">
+<Final>1</Final>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+
+	#dim analyze As StyleCode
+	#dim package As %String
+	#dim console As PluginAbstract	
+	#dim text As %String
+	
+	Set plugin = ""
+	For {
+		Set plugin = $Order(^Analyzer.Plugin(plugin),1,enabled)
+		Quit:(plugin="")
+		continue:(enabled=0)
+		
+		Set ..plugin = plugin
+		Set path = ..#PACKAGEuPLUGINS_..plugin_".Plugin"
+			
+		Do ..showConsoleInitial()
+		try {
+			Set console = $ClassMethod(path, "analyzer", ..classDefinition)
+			Set text = console.getConsole()
+			
+			if (text=""){
+				Write !,"Nada encontrado."
+			} else {
+				Write !,text
+			}
+		} catch exception {
+			//
+		}
+		
+		Do ..showConsoleEnd()
+		
+	}
+
+	
+	
+	Quit $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="showConsoleInitial">
+<Final>1</Final>
+<Private>1</Private>
+<Implementation><![CDATA[
+	#dim className AS %String
+	
+	Set className = ..classDefinition.Name
+	Set className = $P(className, ".", $L(className, "."))
+		
+	Write !,$$$FormatText("[%3 - %1] - Classe: %2", ..plugin, className, $ZDT($H,4))
+]]></Implementation>
+</Method>
+
+<Method name="showConsoleEnd">
+<Final>1</Final>
+<Private>1</Private>
+<Implementation><![CDATA[
+	
+	Write !,$$$FormatText("[%1] - End.", ..plugin)
+]]></Implementation>
+</Method>
+</Class>
+</Export>

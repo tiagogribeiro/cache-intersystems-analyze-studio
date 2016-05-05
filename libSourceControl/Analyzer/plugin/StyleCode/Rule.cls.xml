@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="libSourceControl.Analyzer.plugin.StyleCode.Rule">
+<Import>libSourceControl.Analyzer</Import>
+<Super>%RegisteredObject</Super>
+<TimeCreated>64014,76181.252493</TimeCreated>
+
+<Parameter name="METHOD">
+<Default>1</Default>
+</Parameter>
+
+<Parameter name="PROPERTY">
+<Default>2</Default>
+</Parameter>
+
+<Parameter name="PARAMETER">
+<Default>3</Default>
+</Parameter>
+
+<Parameter name="DEFAULTuMSGuFORMAT">
+<Default>SC [%1] - %2</Default>
+</Parameter>
+
+<Property name="typeValidate">
+<Type>%Integer</Type>
+<Final>1</Final>
+<Private>1</Private>
+<Parameter name="DISPLAYLIST" value="method,propriedade,parametro"/>
+<Parameter name="VALUELIST" value=",1,2,3"/>
+</Property>
+
+<Property name="name">
+<Type>%String</Type>
+<Final>1</Final>
+<Private>1</Private>
+</Property>
+
+<Property name="documentation">
+<Type>%String</Type>
+<Final>1</Final>
+<Private>1</Private>
+</Property>
+
+<Property name="arguments">
+<Type>%String</Type>
+<Final>1</Final>
+<Private>1</Private>
+</Property>
+
+<Property name="implementation">
+<Type>%String</Type>
+<Final>1</Final>
+<Private>1</Private>
+</Property>
+
+<Property name="console">
+<Type>%GlobalCharacterStream</Type>
+<Final>1</Final>
+<Private>1</Private>
+</Property>
+
+<Method name="createFromMethod">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>method:%MethodDefinition</FormalSpec>
+<ReturnType>Rule</ReturnType>
+<Implementation><![CDATA[
+	#dim this As Rule
+	
+	Set this = ..%New()
+	Set this.name = method.Name
+	Set this.arguments = method.FormalSpec
+	Set this.documentation = method.Description	
+	Set this.implementation = method.Implementation
+	Set this.typeValidate = ..#METHOD
+	Quit this
+]]></Implementation>
+</Method>
+
+<Method name="createFromProperty">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>property:%PropertyDefinition</FormalSpec>
+<ReturnType>Rule</ReturnType>
+<Implementation><![CDATA[
+	#dim this As Rule
+	
+	Set this = ..%New()
+	Set this.name = property.Name
+	Set this.documentation = property.Description
+	Set this.typeValidate = ..#PROPERTY
+	Quit this
+]]></Implementation>
+</Method>
+
+<Method name="createFromParameter">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>parameter:%ParameterDefinition</FormalSpec>
+<ReturnType>Rule</ReturnType>
+<Implementation><![CDATA[
+	#dim this As Rule
+	
+	Set this = ..%New()
+	Set this.name = parameter.Name
+	Set this.documentation = parameter.Description
+	Set this.typeValidate = ..#PARAMETER
+	Quit this
+]]></Implementation>
+</Method>
+
+<Method name="validate">
+<ReturnType>Rule</ReturnType>
+<Implementation><![CDATA[
+	//ToDo: Refatorar e aplicar padrão.
+	Set METHOD = 1	
+	Set PROPERTY = 2
+	Set PARAMETER = 3
+	
+	if (..typeValidate = PARAMETER ){
+		Do ..ruleNameParameter()		
+	} elseif ( ..typeValidate = METHOD ){
+		Do ..ruleVariables()		
+		Do ..ruleArguments()
+		Do ..ruleArgumentsType()
+		Do ..ruleCountLines()
+	} if ( ..typeValidate = PROPERTY ) {	
+		Do ..ruleName()
+	}
+	
+	Q ##this
+]]></Implementation>
+</Method>
+
+<Method name="getConsole">
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[	Quit ..console.Read( ..console.SizeGet() )
+]]></Implementation>
+</Method>
+
+<Method name="writeConsole">
+<FormalSpec>message:%String,field:%String</FormalSpec>
+<Private>1</Private>
+<Implementation><![CDATA[	Do ..console.WriteLine( $$$FormatText(..#DEFAULTuMSGuFORMAT, field, message) )
+]]></Implementation>
+</Method>
+
+<Method name="ruleName">
+<Description>
+Validações</Description>
+<Final>1</Final>
+<ReturnType>%Boolean</ReturnType>
+<Implementation><![CDATA[
+	#dim result As %Boolean
+	
+	Set result = ##class(Util).patternCamelCase( ..name )
+	if '( result ){
+		Do ..writeConsole( ##class(ErroEnum).#NAME , ..name )
+	}
+]]></Implementation>
+</Method>
+
+<Method name="ruleNameParameter">
+<Final>1</Final>
+<ReturnType>%Boolean</ReturnType>
+<Implementation><![CDATA[
+	#dim result As %Boolean
+	
+	Set result = ##class(Util).patternUpperCase( ..name )
+	if '( result ){
+		Do ..writeConsole( ##class(ErroEnum).#PARAMETER, ..name )
+	}
+]]></Implementation>
+</Method>
+
+<Method name="ruleArguments">
+<Final>1</Final>
+<Private>1</Private>
+<Implementation><![CDATA[
+	
+	#dim argument As %String
+	#dim result As %Boolean
+	
+	Set list = $listFromString(..arguments,",")
+	For indice=1:1:$ListLength( list ){
+		Set argument = $P($listGet( list, indice ), ":", 1)
+		Set result = ##class(Util).patternCamelCase( argument )
+		if '( result ){					
+			Do ..writeConsole( ##class(ErroEnum).#ARGUMENT, argument )
+		}
+	}
+]]></Implementation>
+</Method>
+
+<Method name="ruleArgumentsType">
+<Final>1</Final>
+<Private>1</Private>
+<Implementation><![CDATA[
+	
+	#dim list As %String
+	#dim argument As %String
+		
+	Set list = $listFromString(..arguments,",")
+	For indice=1:1:$ListLength( list ){
+		Set argument = $listGet( list, indice )		
+		if '( argument[":" ){			
+			Do ..writeConsole( ##class(ErroEnum).#ARGUMENTuTYPE, argument )			
+		}
+	}
+]]></Implementation>
+</Method>
+
+<Method name="ruleDocumentation">
+<Final>1</Final>
+<Private>1</Private>
+<Implementation><![CDATA[
+	#dim result As %Boolean
+	
+	Set result = (..documentation="")
+	if ( result ){
+		Do ..writeConsole( ##class(ErroEnum).#DOCUMENTATION, ..name )
+	}
+]]></Implementation>
+</Method>
+
+<Method name="ruleVariables">
+<Final>1</Final>
+<Private>1</Private>
+<Implementation><![CDATA[
+	
+	#dim line As %String
+	#dim result As %Boolean
+		
+	For indice=1:1:$Length(..implementation, $C(13)) {
+		Set line = $Piece(..implementation, $C(13), indice)
+		if ( $MATCH(line, "^(Set|set).+") ){
+			Set result = $MATCH(line, "^(Set|set)\s[a-z]{1}[a-zA-Z]+")
+			if ( $$$ISERR(result) ){			
+				Do ..writeConsole( ##class(ErroEnum).#VARIABLE, $E(line,1,10)_"..." )				
+			}
+		}
+	}
+]]></Implementation>
+</Method>
+
+<Method name="ruleCountLines">
+<Final>1</Final>
+<Private>1</Private>
+<Implementation><![CDATA[
+	
+	#dim count As %Integer	
+	
+	Set count = $Length(..implementation, $C(10,13))
+	if ( count > 20 ){
+		Do ..writeConsole( ##class(ErroEnum).#COUNTuLINEuMETHOD, ..name ) 
+	}
+]]></Implementation>
+</Method>
+</Class>
+</Export>

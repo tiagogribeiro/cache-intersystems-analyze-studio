@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="libSourceControl.SourceControl">
+<Super>%SourceControl.Git</Super>
+<TimeCreated>64014,76947.32279</TimeCreated>
+
+<Method name="OnAfterSave">
+<Description>
+It may be passed a reference to the object representin
+just saved. It can be use to export this documement to an external form for example.</Description>
+<FormalSpec>InternalName:%String,Object:%RegisteredObject=$$$NULLOREF</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	
+	Do ##class(libSourceControl.Analyzer.Suite).createFrom( InternalName ).analyzer()
+	Quit $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="OnAfterLoad">
+<FormalSpec>InternalName:%String,Object:%RegisteredObject=$$$NULLOREF</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Do ##class(libSourceControl.Analyzer.Suite).createFrom( InternalName ).analyzer()
+	Quit $$$OK
+]]></Implementation>
+</Method>
+</Class>
+</Export>

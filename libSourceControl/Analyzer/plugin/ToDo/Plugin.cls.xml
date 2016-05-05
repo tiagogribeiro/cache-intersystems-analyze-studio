@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="libSourceControl.Analyzer.plugin.ToDo.Plugin">
+<Import>libSourceControl.Analyzer.plugin</Import>
+<Super>PluginAbstract</Super>
+<TimeCreated>64023,80172.480525</TimeCreated>
+
+<Property name="implementation">
+<Type>%String</Type>
+<Private>1</Private>
+</Property>
+
+<Method name="analyzer">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>class:%ClassDefinition</FormalSpec>
+<ReturnType>PluginAbstract</ReturnType>
+<Implementation><![CDATA[
+	#dim this As Plugin
+	
+	Set this = ..%New()
+	Set this.definitions = class
+	Do this.methods()
+	Quit this
+]]></Implementation>
+</Method>
+
+<Method name="methods">
+<Private>1</Private>
+<Implementation><![CDATA[
+	#dim method As %MethodDefinition
+	
+	For indice=1:1:..definitions.Methods.Count() {
+		Set method = ..definitions.Methods.GetAt( indice )
+		Set ..implementation = method.Implementation
+		Do ..collectorToDo()		
+	}
+]]></Implementation>
+</Method>
+
+<Method name="collectorToDo">
+<Private>1</Private>
+<Implementation><![CDATA[
+	#dim line As %String
+	
+	For indice=0:1:$Length(..implementation, $C(13)) {
+		Set line = $Piece(..implementation, $C(13), indice)	
+		if ( $MATCH(line,"\s.+(TODO:|ToDo:).+") ){			
+			Do ..console.WriteLine( $$$FormatText("[ToDo] %1",..cleaning(line) ) )
+		}
+	}
+]]></Implementation>
+</Method>
+
+<Method name="cleaning">
+<FormalSpec>message:%String</FormalSpec>
+<Private>1</Private>
+<Implementation><![CDATA[
+	Set message = $replace(message,"//TODO:", "")
+	Set message = $replace(message,"//ToDo:", "")
+	Set message = $replace(message,$C(10), "")
+	Quit message
+]]></Implementation>
+</Method>
+</Class>
+</Export>

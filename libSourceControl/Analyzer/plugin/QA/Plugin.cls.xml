@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="libSourceControl.Analyzer.plugin.QA.Plugin">
+<Super>libSourceControl.Analyzer.PluginAbstract</Super>
+<TimeCreated>64023,80136.121914</TimeCreated>
+</Class>
+</Export>

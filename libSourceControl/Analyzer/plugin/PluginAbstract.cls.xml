@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="libSourceControl.Analyzer.plugin.PluginAbstract">
+<Abstract>1</Abstract>
+<Import>libSourceControl.Analyzer</Import>
+<Super>%RegisteredObject</Super>
+<TimeCreated>64014,75934.208501</TimeCreated>
+
+<Property name="definitions">
+<Type>%ClassDefinition</Type>
+<Private>1</Private>
+</Property>
+
+<Property name="console">
+<Type>%GlobalCharacterStream</Type>
+<Private>1</Private>
+</Property>
+
+<Method name="analyzer">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>class:%ClassDefinition</FormalSpec>
+<ReturnType>PluginAbstract</ReturnType>
+<Implementation><![CDATA[
+	
+	Quit ..%New()
+]]></Implementation>
+</Method>
+
+<Method name="getConsole">
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[	Quit ..console.Read( ..console.SizeGet() )
+]]></Implementation>
+</Method>
+
+<Method name="writeConsole">
+<FormalSpec>message:%String</FormalSpec>
+<Implementation><![CDATA[	Do ..console.Write(message)
+]]></Implementation>
+</Method>
+</Class>
+</Export>

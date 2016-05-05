@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="libSourceControl.Analyzer.plugin.StyleCode.Plugin">
+<Import>libSourceControl.Analyzer.plugin</Import>
+<Super>PluginAbstract</Super>
+<TimeCreated>64014,75914.627268</TimeCreated>
+
+<Method name="analyzer">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>class:%ClassDefinition</FormalSpec>
+<ReturnType>PluginAbstract</ReturnType>
+<Implementation><![CDATA[
+	#dim this AS Plugin
+	
+	Set this = ..%New()
+	Set this.definitions = class	
+
+	Do this.methods()
+	Do this.propertys()
+	Do this.parameters()	
+	
+	Quit this
+]]></Implementation>
+</Method>
+
+<Method name="methods">
+<Private>1</Private>
+<Implementation><![CDATA[
+	#dim method As %MethodDefinition
+	#dim message As %String	
+	
+	For indice=1:1:..definitions.Methods.Count() {
+		Set method = ..definitions.Methods.GetAt( indice )
+		Set message = ##class(Rule).createFromMethod( method ).validate().getConsole()
+		Do ..writeConsole( message )
+	}
+]]></Implementation>
+</Method>
+
+<Method name="propertys">
+<Private>1</Private>
+<Implementation><![CDATA[
+	#dim property As %PropertyDefinition
+	#dim message As %String
+	
+	For indice=1:1:..definitions.Properties.Count() {
+		Set property = ..definitions.Properties.GetAt( indice )			
+		Set message = ##class(Rule).createFromProperty( property ).validate().getConsole()
+		Do ..writeConsole( message )
+	}
+]]></Implementation>
+</Method>
+
+<Method name="parameters">
+<Private>1</Private>
+<Implementation><![CDATA[
+	#dim parameter As %ParameterDefinition
+	#dim message As %String
+
+	For indice=1:1:..definitions.Parameters.Count() {
+		Set parameter = ..definitions.Parameters.GetAt( indice )		
+		Set message = ##class(Rule).createFromParameter( parameter ).validate().getConsole()
+		Do ..writeConsole( message )
+	}
+]]></Implementation>
+</Method>
+</Class>
+</Export>

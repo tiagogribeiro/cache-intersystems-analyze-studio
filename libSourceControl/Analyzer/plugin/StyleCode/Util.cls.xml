@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="libSourceControl.Analyzer.plugin.StyleCode.Util">
+<Super>%RegisteredObject</Super>
+<TimeCreated>64023,79127.44139</TimeCreated>
+
+<Method name="patternCamelCase">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>source:%String</FormalSpec>
+<Implementation><![CDATA[	Quit $MATCH(source, "^[a-z]{1}[a-zA-Z]+")
+]]></Implementation>
+</Method>
+
+<Method name="patternUpperCase">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>source:%String</FormalSpec>
+<Implementation><![CDATA[	Quit $MATCH(source, "^[A-Zu]+")
+]]></Implementation>
+</Method>
+</Class>
+</Export>
